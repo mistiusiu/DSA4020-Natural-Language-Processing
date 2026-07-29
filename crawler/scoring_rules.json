@@ -1,0 +1,43 @@
+{
+  "weights": {
+    "keyword": 2,
+    "emergency_term": 5,
+    "action_verb": 3,
+    "organization": 2,
+    "date_detected": 2,
+
+    "government_domain": 4,
+
+    "h1_heading": 2,
+
+    "rich_context": 1
+  },
+
+  "heading_patterns": {
+    "public notice": 8,
+    "public advisory": 7,
+    "announcement": 6,
+    "press release": 5,
+    "press statement": 5,
+    "media advisory": 5,
+    "warning": 8,
+    "alert": 8,
+    "emergency": 8,
+    "guidance": 5,
+    "bulletin": 5
+  },
+
+  "government_domains": [
+    ".go.ke",
+    ".gov",
+    ".gov.uk",
+    ".gov.au",
+    ".gov.za",
+    ".gc.ca",
+    ".gouv.fr"
+  ],
+
+  "score_limits": {
+    "maximum": 100
+  }
+}
