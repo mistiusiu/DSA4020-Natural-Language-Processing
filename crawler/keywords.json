@@ -1,0 +1,184 @@
+{
+  "health": [
+    "health",
+    "public health",
+    "disease",
+    "outbreak",
+    "infection",
+    "virus",
+    "bacteria",
+    "vaccination",
+    "vaccine",
+    "immunization",
+    "clinic",
+    "hospital",
+    "medicine",
+    "malaria",
+    "cholera",
+    "dengue",
+    "measles",
+    "ebola",
+    "covid",
+    "coronavirus",
+    "hiv",
+    "aids",
+    "tuberculosis",
+    "tb",
+    "nutrition",
+    "sanitation",
+    "hygiene",
+    "water safety"
+  ],
+
+  "emergency": [
+    "emergency",
+    "urgent",
+    "alert",
+    "warning",
+    "danger",
+    "crisis",
+    "response",
+    "preparedness",
+    "evacuation",
+    "rescue",
+    "disaster",
+    "incident"
+  ],
+
+  "weather_and_climate": [
+    "weather",
+    "forecast",
+    "rainfall",
+    "flood",
+    "flooding",
+    "drought",
+    "heatwave",
+    "storm",
+    "cyclone",
+    "landslide",
+    "climate",
+    "climate change",
+    "early warning"
+  ],
+
+  "security": [
+    "security",
+    "safety",
+    "terrorism",
+    "crime",
+    "police",
+    "law enforcement",
+    "missing person",
+    "public safety",
+    "incident report",
+    "threat"
+  ],
+
+  "government": [
+    "government",
+    "ministry",
+    "department",
+    "agency",
+    "authority",
+    "commission",
+    "county government",
+    "national government",
+    "official statement",
+    "gazette"
+  ],
+
+  "public_communication": [
+    "public notice",
+    "public announcement",
+    "announcement",
+    "notice",
+    "advisory",
+    "advice",
+    "guidance",
+    "press release",
+    "press statement",
+    "media advisory",
+    "bulletin",
+    "update",
+    "statement",
+    "notification"
+  ],
+
+  "citizen_actions": [
+    "please note",
+    "citizens are advised",
+    "residents are advised",
+    "members of the public",
+    "take precautions",
+    "avoid",
+    "report",
+    "contact",
+    "call",
+    "visit",
+    "register",
+    "apply",
+    "submit",
+    "participate"
+  ],
+
+  "transport": [
+    "traffic",
+    "road closure",
+    "road safety",
+    "accident",
+    "public transport",
+    "railway",
+    "airport",
+    "travel advisory",
+    "transport"
+  ],
+
+  "education": [
+    "school",
+    "student",
+    "teacher",
+    "examination",
+    "admission",
+    "education",
+    "learning",
+    "university",
+    "training"
+  ],
+
+  "agriculture": [
+    "farmer",
+    "farming",
+    "agriculture",
+    "livestock",
+    "crop",
+    "harvest",
+    "pest",
+    "disease outbreak",
+    "market prices",
+    "weather advisory"
+  ],
+
+  "finance_and_economy": [
+    "tax",
+    "revenue",
+    "financial",
+    "economic",
+    "loan",
+    "grant",
+    "fund",
+    "payment",
+    "subsidy",
+    "budget"
+  ],
+
+  "elections_and_civic": [
+    "election",
+    "voter",
+    "registration",
+    "polling",
+    "candidate",
+    "campaign",
+    "public participation",
+    "consultation"
+  ]
+}

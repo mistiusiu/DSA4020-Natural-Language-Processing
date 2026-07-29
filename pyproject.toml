@@ -1,0 +1,22 @@
+[project]
+name = "dsa4020-natural-language-processing"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Misati Nyambane",email = "misatiquanta@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "aiohttp (>=3.14.2,<4.0.0)",
+    "beautifulsoup4 (>=4.15.0,<5.0.0)",
+    "lxml (>=6.1.1,<7.0.0)",
+    "aiofiles (>=25.1.0,<26.0.0)",
+    "tqdm (>=4.69.0,<5.0.0)",
+    "pandas (>=3.0.5,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
