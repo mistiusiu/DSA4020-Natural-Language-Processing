@@ -360,10 +360,14 @@ class TranslationInferenceService:
 
                 **inputs,
 
-                forced_bos_token_id=
-                    tokenizer.lang_code_to_id[
-                        direction.target.code
-                    ],
+                forced_bos_token_id = (
+                    tokenizer.convert_tokens_to_ids(
+                        TranslationDirection
+                        .ENG_TO_SWH
+                        .target
+                        .code
+                    )
+                ),
 
                 max_length=
                     MAX_GENERATION_LENGTH,
