@@ -46,7 +46,6 @@ class TranslationDirection(Enum):
 
     )
 
-    """"
     SWH_TO_ENG = (
 
         Language.SWAHILI,
@@ -96,7 +95,6 @@ class TranslationDirection(Enum):
         "gik_to_swh"
 
     )
-    """
 
     @property
     def source(self):

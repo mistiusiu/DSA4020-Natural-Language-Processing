@@ -1,0 +1,16 @@
+{
+    "experiment": "eng_to_kik",
+    "base_model": "facebook/nllb-200-1.3B",
+    "source_language": "eng_Latn",
+    "target_language": "kik_Latn",
+    "training_method": "LoRA",
+    "epochs": 6,
+    "dataset": {
+        "train_samples": 1472,
+        "validation_samples": 184,
+        "test_samples": 185
+    },
+    "created_at": "2026-08-02T21:55:39.066173",
+    "status": "completed",
+    "metrics_file": "metrics.json"
+}
