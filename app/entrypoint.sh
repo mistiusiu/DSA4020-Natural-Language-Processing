@@ -29,6 +29,7 @@ fi
 
 echo "Running migrations..."
 
+python manage.py makemigrations
 python manage.py migrate
 
 
@@ -36,7 +37,7 @@ python manage.py migrate
 echo "Collecting static files..."
 
 python manage.py collectstatic \
-    --noinput
+    --noinput || true
 
 
 echo "Warming up translation model..."
