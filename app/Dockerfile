@@ -69,7 +69,7 @@ FROM builder AS prod-deps
 
 RUN --mount=type=cache,target=/root/.cache/pypoetry \
     poetry install \
-    --without dev,test \
+    --without integration \
     --no-root
 
 
