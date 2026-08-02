@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+env_fleet/
+.env
+*.egg-info/
+dist/
+build/
+*.log
+
+# Django
+*.sqlite3
+staticfiles/
+media/
+logs/
+.venv
+
+# Ruff
+.ruff_cache/
+
+# Pytest
+.pytest_cache
+
+# Redis
+dump.rdb
+
+# Node
+node_modules/
+dist/
+.env.local
+.env.production.local
+.env.development
+.env.production
+.env.demo
+.DS_Store
+
+# Docker
+.docker/
+docker/.env.docker
+docker/.env.docker.local
+
+# Traefik
+letsencrypt/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.agents/
+skills-lock.json
+.cursor/settings.json.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# tmp files
+.tmp/
+tmp/
+
+# Frontend tests
+frontend/playwright-report/
+frontend/test-results/
+frontend/tests/e2e/.auth/*.json
+
+# Bruno production environment (contains real prod credentials)
+bruno/**/environments/FleetOS Production.yml
