@@ -28,6 +28,12 @@ from config.enums import (
 )
 
 
+@dataclass
+class TranslationComponents:
+    tokenizer: object
+    model: object
+
+
 class ModelRegistry:
     """
     Singleton registry for NLLB-200.
@@ -179,19 +185,11 @@ class ModelRegistry:
     def get_components(
         self,
         direction: TranslationDirection
-    ) -> Tuple:
-        """
-        Returns
+    ) -> TranslationComponents:
 
-            tokenizer,
-            model
-
-        ready for inference.
-        """
-
-        return (
-            self.get_tokenizer(),
-            self.get_model(direction)
+        return TranslationComponents(
+            tokenizer=self.get_tokenizer(),
+            model=self.get_model(direction)
         )
 
     def list_loaded_adapters(self):
