@@ -20,7 +20,8 @@ from dataclasses import dataclass
 from config.constants import (
     BASE_MODEL_DIRECTORY,
     DEVICE,
-    TORCH_DTYPE
+    TORCH_DTYPE,
+    MAX_GENERATION_LENGTH
 )
 
 from config.enums import (
