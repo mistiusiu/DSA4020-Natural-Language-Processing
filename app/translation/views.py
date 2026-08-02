@@ -12,7 +12,8 @@ from .serializers import (
 
 
 from .classes import (
-    TranslationInferenceService
+    TranslationInferenceService,
+    ModelRegistry
 )
 
 
