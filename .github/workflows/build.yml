@@ -1,0 +1,84 @@
+name: Build and Push to GHCR
+
+on:
+  push:
+    branches: main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: mistiusiu/nlp-mt
+
+jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read  # Reads past workflow runs
+    outputs:
+      codename: ${{ steps.calc.outputs.CODENAME }}
+    steps:
+      - name: Calculate Codename
+        id: calc
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Natively authenticates the 'gh' CLI
+        run: |
+          YEAR=$(date +'%Y')
+          MONTH=$(date +'%-m')
+          DAY=$(date +'%-d')
+          DATE_STR=$(date +'%Y-%m-%d')
+
+          # Use the GitHub CLI to safely query the API and fall back to 0 if empty
+          RUN_COUNT=$(gh api "repos/${{ github.repository }}/actions/runs?created=${DATE_STR}" --jq '.total_count' || echo "0")
+
+          # If it's the very first run of the day, total_count will be 1.
+          # If the API fails or returns 0, we fallback to 1 so it never breaks.
+          if [ "$RUN_COUNT" -eq 0 ]; then
+            ITERATION=1
+          else
+            ITERATION=$RUN_COUNT
+          fi
+
+          echo "CODENAME=${YEAR}.${MONTH}.${DAY}.${ITERATION}" >> $GITHUB_OUTPUT
+
+  build:
+    needs: versioning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+      id-token: write
+    strategy:
+      matrix:
+        component: [app] # Accepts numerous components
+        include:
+          - component: app
+            context: ./app # Map to backend directory
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+        with:
+          driver: docker-container
+
+      - name: Login to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Production
+        uses: docker/build-push-action@v7
+        with:
+          context: ${{ matrix.context }}
+          target: production
+          push: true
+          no-cache: true
+          # Inject secrets from Infisical as build arguments
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.component }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.component }}:prod
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.component }}:${{ needs.versioning.outputs.codename }}
