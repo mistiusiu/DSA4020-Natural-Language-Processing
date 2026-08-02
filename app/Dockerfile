@@ -101,7 +101,8 @@ RUN mkdir -p \
     logs \
     media \
     staticfiles \
-    models
+    models \
+    static
 
 
 
