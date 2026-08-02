@@ -21,41 +21,47 @@ class Command(BaseCommand):
 
         model_root = (
             Path(settings.BASE_DIR)
-            / "models"
-            / "facebook_nllb_1_3b"
+            /
+            "models"
+            /
+            "facebook_nllb_1_3b"
         )
+
 
         model_root.mkdir(
             parents=True,
             exist_ok=True
         )
 
+
         self.stdout.write(
-            "Downloading tokenizer..."
+            f"Downloading {MODEL_NAME}"
         )
+
 
         tokenizer = AutoTokenizer.from_pretrained(
             MODEL_NAME
         )
 
+
         tokenizer.save_pretrained(
-            model_root
+            str(model_root)
         )
 
-        self.stdout.write(
-            "Downloading model..."
-        )
 
         model = AutoModelForSeq2SeqLM.from_pretrained(
             MODEL_NAME
         )
 
+
         model.save_pretrained(
-            model_root
+            str(model_root),
+            safe_serialization=True
         )
+
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Saved to {model_root}"
+                f"Saved NLLB to {model_root}"
             )
         )
