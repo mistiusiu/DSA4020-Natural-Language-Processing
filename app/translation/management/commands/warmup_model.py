@@ -53,11 +53,12 @@ class Command(BaseCommand):
         )
 
 
-        model, tokenizer = (
-            registry.get_components(
-                TranslationDirection.ENG_TO_SWH
-            )
+        components = registry.get_components(
+            TranslationDirection.ENG_TO_SWH
         )
+
+        tokenizer = components.tokenizer
+        model = components.model
 
 
         tokenizer.src_lang = (
