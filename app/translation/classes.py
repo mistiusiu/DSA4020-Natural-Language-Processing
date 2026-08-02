@@ -299,11 +299,14 @@ class TranslationInferenceService:
     ) -> TranslationResult:
 
 
-        tokenizer, model = (
+        components = (
             self.registry.get_components(
                 direction
             )
         )
+
+        tokenizer = components.tokenizer
+        model = components.model
 
 
         start_time = time.perf_counter()
