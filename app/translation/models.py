@@ -33,7 +33,8 @@ class TranslationRequest(BaseModel):
     source_text = models.TextField()
 
     translated_text = models.TextField(
-        blank=True
+        blank=True,
+        default=""
     )
 
     model_name = models.CharField(
@@ -42,7 +43,9 @@ class TranslationRequest(BaseModel):
     )
 
     adapter_name = models.CharField(
-        max_length=100
+        max_length=100,
+        blank=True,
+        default=""
     )
 
     adapter_version = models.CharField(
@@ -56,11 +59,20 @@ class TranslationRequest(BaseModel):
         help_text="Model confidence between 0.0 and 1.0"
     )
 
-    inference_time_ms = models.FloatField()
+    inference_time_ms = models.FloatField(
+        null=True,
+        blank=True
+    )
 
-    input_tokens = models.PositiveIntegerField()
+    input_tokens = models.PositiveIntegerField(
+        null=True,
+        blank=True
+    )
 
-    output_tokens = models.PositiveIntegerField()
+    output_tokens = models.PositiveIntegerField(
+        null=True,
+        blank=True
+    )
 
     status = models.CharField(
         max_length=10,
@@ -69,7 +81,8 @@ class TranslationRequest(BaseModel):
     )
 
     error_message = models.TextField(
-        blank=True
+        blank=True,
+        default=""
     )
 
     rating = models.PositiveSmallIntegerField(
@@ -78,7 +91,8 @@ class TranslationRequest(BaseModel):
     )
 
     feedback = models.TextField(
-        blank=True
+        blank=True,
+        default=""
     )
 
     ip_address = models.GenericIPAddressField(
@@ -87,12 +101,14 @@ class TranslationRequest(BaseModel):
     )
 
     user_agent = models.TextField(
-        blank=True
+        blank=True,
+        default=""
     )
 
     session_id = models.CharField(
         max_length=128,
-        blank=True
+        blank=True,
+        default=""
     )
 
     class Meta:
@@ -100,9 +116,18 @@ class TranslationRequest(BaseModel):
 
         indexes = [
             models.Index(fields=["created_at"]),
-            models.Index(fields=["source_language", "target_language"]),
-            models.Index(fields=["adapter_name"]),
-            models.Index(fields=["status"]),
+            models.Index(
+                fields=[
+                    "source_language",
+                    "target_language"
+                ]
+            ),
+            models.Index(
+                fields=["adapter_name"]
+            ),
+            models.Index(
+                fields=["status"]
+            ),
         ]
 
     def __str__(self):

@@ -20,7 +20,8 @@ from dataclasses import dataclass
 from config.constants import (
     BASE_MODEL_DIRECTORY,
     DEVICE,
-    TORCH_DTYPE
+    TORCH_DTYPE,
+    MAX_GENERATION_LENGTH
 )
 
 from config.enums import (
@@ -299,11 +300,14 @@ class TranslationInferenceService:
     ) -> TranslationResult:
 
 
-        tokenizer, model = (
+        components = (
             self.registry.get_components(
                 direction
             )
         )
+
+        tokenizer = components.tokenizer
+        model = components.model
 
 
         start_time = time.perf_counter()

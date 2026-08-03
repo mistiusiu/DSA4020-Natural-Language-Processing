@@ -1,5 +1,6 @@
 import torch
 
+from django.views.generic import TemplateView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,13 +13,18 @@ from .serializers import (
 
 
 from .classes import (
-    TranslationInferenceService
+    TranslationInferenceService,
+    ModelRegistry
 )
 
 
 from .models import (
     TranslationRequest
 )
+
+
+class TranslatorPageView(TemplateView):
+    template_name = "translator.html"
 
 
 class HealthAPIView(APIView):
