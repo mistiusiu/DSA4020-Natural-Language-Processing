@@ -366,10 +366,7 @@ class TranslationInferenceService:
 
                 forced_bos_token_id = (
                     tokenizer.convert_tokens_to_ids(
-                        TranslationDirection
-                        .ENG_TO_SWH
-                        .target
-                        .code
+                        direction.target.code
                     )
                 ),
 
