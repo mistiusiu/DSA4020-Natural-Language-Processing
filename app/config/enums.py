@@ -21,6 +21,11 @@ class Language(Enum):
         "Gikuyu"
     )
 
+    GUSII = (
+        "cgg_Latn" # Chiga is used as the transfer learning language
+        "Gusii"
+    )
+
 
     @property
     def code(self):
@@ -94,6 +99,24 @@ class TranslationDirection(Enum):
 
         "gik_to_swh"
 
+    )
+
+    ENG_TO_GUZ = (
+
+        Language.ENGLISH,
+
+        Language.GUSII,
+
+        "eng_to_cgg" # Chiga transfer learning
+    )
+
+    GUZ_TO_ENG = (
+
+        Language.GUSII,
+
+        Language.ENGLISH,
+
+        "cgg_to_eng" # Chiga transfer learning
     )
 
     @property

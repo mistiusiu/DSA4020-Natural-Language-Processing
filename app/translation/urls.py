@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     TranslatorPageView,
     TranslationAPIView,
-    HealthAPIView
+    HealthAPIView,
+    TranslationDirectionListView
 )
 
 
@@ -13,6 +14,12 @@ urlpatterns = [
         "translate/",
         TranslationAPIView.as_view(),
         name="translate"
+    ),
+
+    path(
+        "translation-directions/",
+        TranslationDirectionListView.as_view(),
+        name="translation-directions-list",
     ),
 
     path(

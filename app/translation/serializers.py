@@ -5,6 +5,24 @@ from config.enums import (
 )
 
 
+class LanguageSerializer(serializers.Serializer):
+    """
+    Serializes individual Language enum/object attributes.
+    """
+    name = serializers.CharField()
+    code = serializers.CharField()
+
+
+class TranslationDirectionSerializer(serializers.Serializer):
+    """
+    Serializes TranslationDirection Enum instances.
+    """
+    id = serializers.CharField(source="name")  # e.g., 'ENG_TO_SWH'
+    adapter_name = serializers.CharField()
+    source = LanguageSerializer()
+    target = LanguageSerializer()
+
+
 class TranslationSerializer(
     serializers.Serializer
 ):
