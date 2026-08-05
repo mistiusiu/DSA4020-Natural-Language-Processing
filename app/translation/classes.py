@@ -377,7 +377,13 @@ class TranslationInferenceService:
 
                 return_dict_in_generate=True,
 
-                output_scores=True
+                output_scores=True,
+
+                length_penalty=1.0,
+
+                no_repeat_ngram_size=3,
+
+                early_stopping=True,
 
             )
 
