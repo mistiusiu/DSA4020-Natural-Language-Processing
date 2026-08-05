@@ -8,7 +8,8 @@ from rest_framework import status
 
 from .serializers import (
     TranslationSerializer,
-    TranslationResponseSerializer
+    TranslationResponseSerializer,
+    TranslationDirectionSerializer
 )
 
 
@@ -20,6 +21,11 @@ from .classes import (
 
 from .models import (
     TranslationRequest
+)
+
+
+from config.enums import (
+    TranslationDirection
 )
 
 
@@ -105,6 +111,25 @@ class HealthAPIView(APIView):
                 },
                 status=503
             )
+
+
+class TranslationDirectionListView(APIView):
+    """
+    API endpoint that returns a list of all supported translation directions.
+    """
+
+    def get(self, request, *args, **kwargs):
+        # Enum iteration yields all members: ENG_TO_SWH, SWH_TO_ENG, etc.
+        directions = list(TranslationDirection)
+
+        serializer = TranslationDirectionSerializer(directions, many=True)
+        return Response(
+            {
+                "count": len(serializer.data),
+                "results": serializer.data,
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 class TranslationAPIView(APIView):

@@ -96,7 +96,7 @@
             padding: 0.25rem 0.6rem;
             border-radius: 12px;
             color: white;
-            background-color: #2ecc71; /* Default high confidence green */
+            background-color: #2ecc71; /* High confidence green */
         }
         .confidence-badge.medium {
             background-color: #f39c12; /* Warning yellow */
@@ -140,18 +140,14 @@
             <div class="language-controls">
                 <div class="form-group">
                     <label for="source_language">Translate From</label>
-                    <select name="source_language" id="source_language">
-                        <option value="eng_Latn" selected>English</option>
-                        <option value="swh_Latn">Swahili</option>
-                        <option value="kik_Latn">Gikuyu</option>
+                    <select name="source_language" id="source_language" disabled>
+                        <option value="">Loading languages...</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="target_language">Translate To</label>
-                    <select name="target_language" id="target_language">
-                        <option value="swh_Latn" selected>Swahili</option>
-                        <option value="eng_Latn">English</option>
-                        <option value="kik_Latn">Gikuyu</option>
+                    <select name="target_language" id="target_language" disabled>
+                        <option value="">Select source first</option>
                     </select>
                 </div>
             </div>
@@ -161,7 +157,7 @@
                 <textarea id="source_text" rows="5" placeholder="Enter text here..." required></textarea>
             </div>
 
-            <button type="submit" id="submit-btn">
+            <button type="submit" id="submit-btn" disabled>
                 <span id="btn-text">Translate Text</span>
                 <span id="btn-spinner" class="spinner hidden"></span>
             </button>
@@ -194,8 +190,82 @@
             const confidenceBadge = document.getElementById("confidence-badge");
             const errorBox = document.getElementById("error-box");
 
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+            const csrfToken = csrfTokenElement ? csrfTokenElement.value : '';
 
+            let supportedDirections = [];
+
+            // Helper to title-case language names (e.g. SWAHILI -> Swahili)
+            const formatName = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
+
+            // Fetch allowed translation directions from API
+            async function fetchDirections() {
+                try {
+                    const response = await fetch("/api/translation-directions/");
+                    if (!response.ok) {
+                        throw new Error("Failed to load supported translation directions.");
+                    }
+                    const data = await response.json();
+                    supportedDirections = data.results || data.directions || [];
+
+                    if (supportedDirections.length === 0) {
+                        throw new Error("No supported translation directions available.");
+                    }
+
+                    populateSourceDropdown();
+                } catch (err) {
+                    errorBox.textContent = err.message;
+                    errorBox.classList.remove("hidden");
+                }
+            }
+
+            // Populate unique source languages
+            function populateSourceDropdown() {
+                sourceLang.innerHTML = "";
+                const sourcesMap = new Map();
+
+                supportedDirections.forEach(dir => {
+                    const code = dir.source.code;
+                    if (!sourcesMap.has(code)) {
+                        sourcesMap.set(code, dir.source.name);
+                    }
+                });
+
+                sourcesMap.forEach((name, code) => {
+                    const opt = document.createElement("option");
+                    opt.value = code;
+                    opt.textContent = formatName(name);
+                    sourceLang.appendChild(opt);
+                });
+
+                sourceLang.disabled = false;
+                updateTargetDropdown();
+            }
+
+            // Populate valid target languages based on current source selection
+            function updateTargetDropdown() {
+                targetLang.innerHTML = "";
+                const selectedSource = sourceLang.value;
+
+                const validTargets = supportedDirections
+                    .filter(dir => dir.source.code === selectedSource)
+                    .map(dir => dir.target);
+
+                validTargets.forEach(target => {
+                    const opt = document.createElement("option");
+                    opt.value = target.code;
+                    opt.textContent = formatName(target.name);
+                    targetLang.appendChild(opt);
+                });
+
+                targetLang.disabled = false;
+                submitBtn.disabled = false;
+            }
+
+            // Update targets dynamically whenever source changes
+            sourceLang.addEventListener("change", updateTargetDropdown);
+
+            // Handle translation form submission
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
@@ -229,15 +299,12 @@
                         throw new Error(data.error || "Something went wrong.");
                     }
 
-                    // Populate Translation Text
                     translatedText.textContent = data.translated_text;
 
-                    // Display Confidence Badge if present in JSON response
                     if (data.confidence !== undefined) {
                         const confPercent = Math.round(data.confidence * 100);
                         confidenceBadge.textContent = `${confPercent}% Confidence`;
 
-                        // Reset dynamic badge styling classes
                         confidenceBadge.className = "confidence-badge";
                         if (confPercent < 60) {
                             confidenceBadge.classList.add("low");
@@ -259,6 +326,9 @@
                     btnSpinner.classList.add("hidden");
                 }
             });
+
+            // Initial fetch
+            fetchDirections();
         });
     </script>
 </body>
