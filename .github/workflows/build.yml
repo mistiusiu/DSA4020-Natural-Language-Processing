@@ -2,7 +2,7 @@ name: Build and Push to GHCR
 
 on:
   push:
-    branches: ghcr-build
+    branches: main
 
 env:
   REGISTRY: ghcr.io
