@@ -5,14 +5,13 @@
     "target_language": "guz_Latn",
     "nllb_source_token": "eng_Latn",
     "nllb_target_token": "cgg_Latn",
-    "training_method": "LoRA",
-    "epochs": 6,
+    "training_method": "LoRA (Attention + MLP)",
+    "max_epochs": 6,
     "dataset": {
         "train_samples": 3852,
         "validation_samples": 482,
         "test_samples": 482
     },
-    "created_at": "2026-08-05T11:44:25.228003",
-    "status": "completed",
-    "metrics_file": "metrics.json"
+    "created_at": "2026-08-11T15:49:43.205440",
+    "status": "started"
 }
